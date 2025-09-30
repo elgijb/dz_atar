@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>הרשמה | Registration</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="lang-switch">
+      <button onclick="setLanguage('he')">עברית</button>
+      <button onclick="setLanguage('ru')">Русский</button>
+      <button onclick="setLanguage('en')">English</button>
+    </div>
+    <div class="theme-switch">
+      <button onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
+  </div>
+
+  <section class="center-form">
+    <h2 data-lang="register_title">הרשמה</h2>
+    <form id="registerForm">
+      <input type="email" id="email" placeholder="דוא״ל" required data-lang-placeholder="email">
+      <input type="password" id="password" placeholder="סיסמה" required data-lang-placeholder="password">
+      <button type="submit" data-lang="register_btn">הירשם</button>
+    </form>
+    <div id="registerMessage"></div>
+  </section>
+
+  <script src="lang.js"></script>
+  <script src="theme.js"></script>
+  <script>
+    const registerForm = document.getElementById("registerForm");
+    const registerMessage = document.getElementById("registerMessage");
+
+    registerForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("email").value;
+      registerMessage.textContent = lang[currentLang].success.replace("{email}", email);
+
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 2000);
+    });
+
+    applyLanguage();
+    applyTheme();
+  </script>
+</body>
+</html>

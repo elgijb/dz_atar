@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title data-lang="menu_contacts">צור קשר</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo" data-lang="site_name"></h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" data-lang="menu_home"></a></li>
+        <li><a href="blog.html" data-lang="menu_blog"></a></li>
+        <li><a href="account.html" data-lang="menu_account"></a></li>
+      </ul>
+    </nav>
+    <div id="userBox"></div>
+  </header>
+
+  <div class="top-bar">
+    <div class="lang-switch">
+      <button onclick="setLanguage('he')">עברית</button>
+      <button onclick="setLanguage('ru')">Русский</button>
+      <button onclick="setLanguage('en')">English</button>
+    </div>
+    <div class="theme-switch">
+      <button onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
+  </div>
+
+  <section>
+    <h2 data-lang="contact_title"></h2>
+    <p data-lang="contact_text"></p>
+    <form>
+      <input type="text" data-lang-placeholder="name">
+      <input type="email" data-lang-placeholder="email">
+      <textarea data-lang-placeholder="message"></textarea>
+      <button type="submit" data-lang="send_btn"></button>
+    </form>
+  </section>
+
+  <script src="lang.js"></script>
+  <script src="theme.js"></script>
+  <script>
+    applyLanguage()
+    applyTheme()
+    const userBox = document.getElementById("userBox")
+    const currentUser = localStorage.getItem("currentUser")
+    if (currentUser) {
+      userBox.textContent = lang[currentLang].hello_user.replace("{email}", currentUser)
+    }
+  </script>
+</body>
+</html>

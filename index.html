@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title data-lang="site_name">עולם הטיולים</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1 class="logo" data-lang="site_name">עולם הטיולים</h1>
+    <nav>
+      <ul>
+        <li><a href="index.html" data-lang="menu_home">ראשי</a></li>
+        <li><a href="blog.html" data-lang="menu_blog">בלוג</a></li>
+        <li><a href="contacts.html" data-lang="menu_contacts">צור קשר</a></li>
+        <li><a href="account.html" data-lang="menu_account">חשבון</a></li>
+      </ul>
+    </nav>
+    <div id="userBox"></div>
+  </header>
+
+  <div class="top-bar">
+    <div class="lang-switch">
+      <button onclick="setLanguage('he')">עברית</button>
+      <button onclick="setLanguage('ru')">Русский</button>
+      <button onclick="setLanguage('en')">English</button>
+    </div>
+    <div class="theme-switch">
+      <button onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
+  </div>
+
+  <section>
+    <h2 data-lang="welcome_title">ברוכים הבאים לעולם הטיולים</h2>
+    <p data-lang="welcome_text"></p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f1/Jerusalem_Mount_of_Olives_Sunset.jpg">
+  </section>
+
+  <section>
+    <h2 data-lang="jerusalem_title"></h2>
+    <p data-lang="jerusalem_text"></p>
+    <a href="https://ru.wikipedia.org/wiki/%D0%98%D0%B5%D1%80%D1%83%D1%81%D0%B0%D0%BB%D0%B8%D0%BC" target="_blank" data-lang="read_more"></a>
+    <img src="https://picsum.photos/800/400?random=1">
+  </section>
+
+  <section>
+    <h2 data-lang="telaviv_title"></h2>
+    <p data-lang="telaviv_text"></p>
+    <a href="https://ru.wikipedia.org/wiki/%D0%A2%D0%B5%D0%BB%D1%8C-%D0%90%D0%B2%D0%B8%D0%B2" target="_blank" data-lang="read_more"></a>
+    <img src="https://picsum.photos/800/400?random=2">
+  </section>
+
+  <script src="lang.js"></script>
+  <script src="theme.js"></script>
+  <script>
+    applyLanguage()
+    applyTheme()
+    const userBox = document.getElementById("userBox")
+    const currentUser = localStorage.getItem("currentUser")
+    if (currentUser) {
+      userBox.textContent = lang[currentLang].hello_user.replace("{email}", currentUser)
+    }
+  </script>
+</body>
+</html>

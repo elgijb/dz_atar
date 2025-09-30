@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>חשבון | Account</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="top-bar">
+    <div class="lang-switch">
+      <button onclick="setLanguage('he')">עברית</button>
+      <button onclick="setLanguage('ru')">Русский</button>
+      <button onclick="setLanguage('en')">English</button>
+    </div>
+    <div class="theme-switch">
+      <button onclick="toggleTheme()" id="themeBtn">🌙</button>
+    </div>
+  </div>
+
+  <section class="center-form">
+    <h2 data-lang="account_title">חשבון</h2>
+
+    <form id="registerForm">
+      <h3 data-lang="register_title">הרשמה</h3>
+      <input type="email" id="regEmail" placeholder="דוא״ל" required data-lang-placeholder="email">
+      <input type="password" id="regPassword" placeholder="סיסמה" required data-lang-placeholder="password">
+      <input type="tel" id="regPhone" placeholder="מספר טלפון" required data-lang-placeholder="phone">
+      <button type="submit" data-lang="register_btn">הירשם</button>
+    </form>
+
+    <hr>
+
+    <form id="loginForm">
+      <h3 data-lang="login_title">כניסה</h3>
+      <input type="email" id="logEmail" placeholder="דוא״ל" required data-lang-placeholder="email">
+      <input type="password" id="logPassword" placeholder="סיסמה" required data-lang-placeholder="password">
+      <button type="submit" data-lang="login_btn">התחבר</button>
+    </form>
+
+    <div id="accountMessage"></div>
+  </section>
+
+  <script src="lang.js"></script>
+  <script src="theme.js"></script>
+  <script>
+    const regForm = document.getElementById("registerForm");
+    const logForm = document.getElementById("loginForm");
+    const accountMessage = document.getElementById("accountMessage");
+
+    regForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("regEmail").value;
+      const password = document.getElementById("regPassword").value;
+      const phone = document.getElementById("regPhone").value;
+
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      if (users[email]) {
+        accountMessage.textContent = lang[currentLang].user_exists;
+      } else {
+        users[email] = { password: password, phone: phone };
+        localStorage.setItem("users", JSON.stringify(users));
+        accountMessage.textContent = lang[currentLang].register_success.replace("{email}", email);
+      }
+    });
+
+    logForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      const email = document.getElementById("logEmail").value;
+      const password = document.getElementById("logPassword").value;
+
+      let users = JSON.parse(localStorage.getItem("users")) || {};
+      if (users[email] && users[email].password === password) {
+        localStorage.setItem("currentUser", email);
+        accountMessage.textContent = lang[currentLang].login_success.replace("{email}", email);
+        setTimeout(() => {
+          window.location.href = "index.html";
+        }, 1500);
+      } else {
+        accountMessage.textContent = lang[currentLang].login_fail;
+      }
+    });
+
+    applyLanguage();
+    applyTheme();
+  </script>
+</body>
+</html>
